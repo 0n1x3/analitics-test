@@ -1,16 +1,17 @@
-interface ErrorDisplayProps {
-  error: string;
+import React from 'react';
+
+export interface ErrorDisplayProps {
+  message: string;
 }
 
-const ErrorDisplay = (props: ErrorDisplayProps) => {
-  const { error } = props;
+const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ message }) => {
   return (
     <div
       className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
       role="alert"
     >
       <strong className="font-bold">Error:</strong>
-      <span className="block sm:inline">{error}</span>
+      <span className="block sm:inline">{message}</span>
     </div>
   );
 };

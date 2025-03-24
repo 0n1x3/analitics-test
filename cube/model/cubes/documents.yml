@@ -1,0 +1,40 @@
+cubes:
+  - name: documents
+    sql_table: Documents
+    
+    dimensions:
+      - name: id
+        sql: ID
+        type: number
+        primary_key: true
+        
+      - name: date_created
+        sql: DateCreated
+        type: time
+        
+      - name: month
+        sql: "DATE_FORMAT({CUBE}.DateCreated, '%Y-%m')"
+        type: string
+        
+      - name: type
+        sql: Type
+        type: string
+    
+    measures:
+      - name: count
+        type: count
+        
+      - name: estimates_count
+        type: count
+        filters:
+          - sql: "{CUBE}.Type = 'Estimate'"
+          
+      - name: contracts_count
+        type: count
+        filters:
+          - sql: "{CUBE}.Type = 'Contract'"
+          
+      - name: conversion_percent
+        sql: "ROUND((100.0 * {estimates_count} / NULLIF({contracts_count}, 0)), 2)"
+        type: number
+        format: percent

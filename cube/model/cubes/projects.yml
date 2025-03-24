@@ -1,0 +1,13 @@
+cubes:
+  - name: projects
+    sql_table: Projects
+    
+    dimensions:
+      - name: id
+        sql: ID
+        type: number
+        primary_key: true
+        
+      - name: name
+        sql: Name
+        type: string

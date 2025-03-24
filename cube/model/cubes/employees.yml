@@ -1,0 +1,21 @@
+cubes:
+  - name: employees
+    sql_table: Employees
+    
+    dimensions:
+      - name: id
+        sql: ID
+        type: number
+        primary_key: true
+      
+      - name: first_name
+        sql: FirstName
+        type: string
+        
+      - name: last_name
+        sql: LastName
+        type: string
+        
+      - name: full_name
+        sql: CONCAT(FirstName, ' ', LastName)
+        type: string

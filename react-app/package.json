@@ -11,8 +11,11 @@
     "postinstall": "cp node_modules/sql.js/dist/sql-wasm.wasm ./src/assets/sql-wasm.wasm"
   },
   "dependencies": {
+    "@cubejs-client/core": "^1.2.26",
+    "@cubejs-client/react": "^1.2.26",
     "@monaco-editor/react": "^4.6.0",
-    "ag-grid-react": "^33.0.3",
+    "ag-grid-community": "^33.1.1",
+    "ag-grid-react": "^33.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sql.js": "^1.12.0"

@@ -1,0 +1,49 @@
+cubes:
+  - name: analytics
+    sql: >
+      SELECT
+        DATE_FORMAT(d.DateCreated, '%Y-%m') AS Month,
+        d.ResponsibleEmployee AS EmployeeID,
+        CASE 
+          WHEN d.ResponsibleEmployee = 1 THEN 'Иван Иванов'
+          WHEN d.ResponsibleEmployee = 2 THEN 'Анна Смирнова'
+          WHEN d.ResponsibleEmployee = 3 THEN 'Александр Кузнецов'
+          WHEN d.ResponsibleEmployee = 4 THEN 'Мария Петрова'
+          ELSE CONCAT('Сотрудник ', d.ResponsibleEmployee) 
+        END AS Employee,
+        d.Type,
+        d.ID as DocumentID
+      FROM
+        Documents d
+    
+    dimensions:
+      - name: month
+        sql: Month
+        type: string
+      
+      - name: employee
+        sql: Employee
+        type: string
+        
+      - name: employee_id
+        sql: EmployeeID
+        type: number
+    
+    measures:
+      - name: count
+        type: count
+        
+      - name: estimates
+        type: count
+        filters:
+          - sql: "{CUBE}.Type = 'Estimate'"
+          
+      - name: contracts
+        type: count
+        filters:
+          - sql: "{CUBE}.Type = 'Contract'"
+          
+      - name: conversion_percent
+        sql: "ROUND((100.0 * {estimates} / NULLIF({contracts}, 0)), 2)"
+        type: number
+        format: percent
